@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HttpService } from '@nestjs/axios';
@@ -8,7 +8,7 @@ import { ProductMapper } from './mappers/product.mapper';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class ProductSyncService {
+export class ProductSyncService implements OnApplicationBootstrap {
   private readonly logger = new Logger(ProductSyncService.name);
 
   // URLs dos provedores (idealmente viriam de variáveis de ambiente)
@@ -23,6 +23,10 @@ export class ProductSyncService {
   ) {
     this.BRAZILIAN_PROVIDER_URL = this.configService.get<string>('apiProvider.providerBR') ?? '';
     this.EUROPEAN_PROVIDER_URL = this.configService.get<string>('apiProvider.providerEU') ?? '';
+  }
+  async onApplicationBootstrap() {
+    this.logger.log('Aplicação iniciada. Executando sincronização inicial...');
+    await this.syncAllProviders();
   }
 
   async syncAllProviders() {
