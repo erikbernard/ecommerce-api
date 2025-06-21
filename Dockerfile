@@ -13,7 +13,7 @@ RUN npm run build
 # STAGE 2 - Production
 FROM node:20-alpine AS production
 
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 WORKDIR /usr/src/app
 
