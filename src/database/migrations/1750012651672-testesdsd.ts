@@ -6,6 +6,5 @@ export class Testesdsd1750012651672 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE IF EXISTS task;`);
   }
 }

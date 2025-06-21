@@ -8,12 +8,13 @@ import { DatabaseModule } from './database/database.module';
 import { ProductSyncModule } from './product-sync/product-sync.module';
 import appConfig from './common/config/app.config';
 import databaseConfig from './common/config/database.config';
+import apiProviderConfig from './common/config/apiProvider.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, databaseConfig],
+      load: [appConfig, databaseConfig, apiProviderConfig],
     }),
     DatabaseModule,
     ProductsModule,
