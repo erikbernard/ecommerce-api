@@ -1,0 +1,84 @@
+### Test NestJS Event API
+@baseUrl = http://localhost:3000
+
+### user signin
+# @name login
+POST {{baseUrl}}/user/signin
+Content-Type: application/json
+
+{
+  "email": "erik@gmail.com",
+  "password": "erik@123ERIK"
+}
+
+### Extrair token da resposta anterior
+@authToken = {{login.response.body.accessToken}}
+
+### user create
+POST {{baseUrl}}/user
+Content-Type: application/json
+
+{
+  "name": "jonh2",
+  "email": "erik@gmail.com",
+  "password": "erik@123ERIK"
+}
+
+### user list
+GET {{baseUrl}}/user
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+### product add api external
+POST {{baseUrl}}/product-sync
+Content-Type: application/json
+
+
+### product list with query params
+# GET {{baseUrl}}/products
+GET {{baseUrl}}/products?offset=0&limit=10&minPrice=0&order=ASC&hasDiscount=false
+Content-Type: application/json
+
+
+### product list id
+GET {{baseUrl}}/products/3
+Content-Type: application/json
+
+### Orders add
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "userId": "1a55ef2c-8ad8-458c-a211-eb05e625eca9",
+  "total": 40,
+  "payment_method": "card",
+  "status": "pending",
+  "items": [
+    {
+      "product_id": 3,
+      "quantity": 2,
+      "price": 20
+    }
+  ]
+}
+
+### Orders list
+GET  {{baseUrl}}/orders
+Content-Type: application/json
+
+
+### review list
+GET  {{baseUrl}}/reviews
+Content-Type: application/json
+
+### review add
+POST   {{baseUrl}}/reviews
+Content-Type: application/json
+
+{
+  "product_id": 3,
+  "user_id": "1a55ef2c-8ad8-458c-a211-eb05e625eca9",
+  "rating": 3,
+  "comment": "Great product!"
+}
