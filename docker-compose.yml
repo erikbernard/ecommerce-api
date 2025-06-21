@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:15
+    
+    container_name: ecommerce_postgres
+    
+    environment:
+      POSTGRES_USER: postgres # Define o nome do superusuário do banco.
+      POSTGRES_PASSWORD: 1!w0dka1sdw!f!ft5t!2 # Define a senha para o superusuário. Use uma senha forte.
+      POSTGRES_DB: ecommerce # <<-- ESTA É A LINHA CHAVE! Ela instrui a imagem a criar este banco na inicialização.
+      
+    ports:
+      - '5432:5432'
+      
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      
+    restart: always
+
+volumes:
+  postgres_data: {}
