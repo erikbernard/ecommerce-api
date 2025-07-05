@@ -13,14 +13,10 @@ import { DatabaseConfig } from 'src/common/interfaces/database-config.interface'
           throw new Error('Database configuration is missing');
         }
         const isDevelopment = process.env.NODE_ENV === 'development';
-        
+
         return {
+          url: dbConfig.databaseUrl,
           type: 'postgres' as const,
-          host: dbConfig.host,
-          port: dbConfig.port,
-          username: dbConfig.username,
-          password: dbConfig.password,
-          database: dbConfig.database,
           entities: [__dirname + '/../**/*.entity{.ts,.js}'],
           migrations: [__dirname + '/migrations/*.ts'],
           synchronize: isDevelopment, // Só em desenvolvimento
@@ -32,4 +28,4 @@ import { DatabaseConfig } from 'src/common/interfaces/database-config.interface'
     }),
   ],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }
